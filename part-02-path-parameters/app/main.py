@@ -38,11 +38,14 @@ def root() -> dict:
 
 # New addition, path parameter
 # https://fastapi.tiangolo.com/tutorial/path-params/
-@api_router.get("/recipe/{recipe_id}", status_code=200)
-def fetch_recipe(*, recipe_id: int) -> dict:
+@api_router.get("/recipe/{recipe_id}", status_code=200) # recipe_id is a path parameter
+def fetch_recipe(*, recipe_id: int) -> dict: # the value passed to the api is specified in the function signature, we are parsing the path parameter
+    # the ¨* means that the following parameters are keyword-only, not positional. you must call the function using fetch_recipe(recipe_id=1) instead of fetch_recipe(1)
     """
     Fetch a single recipe by ID
     """
+    print(recipe_id)
+    print(type(recipe_id))
 
     result = [recipe for recipe in RECIPES if recipe["id"] == recipe_id]
     if result:
