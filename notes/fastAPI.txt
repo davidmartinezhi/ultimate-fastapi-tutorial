@@ -1,4 +1,5 @@
 FastAPI does not have built in server
+on the server if i write /docs i get documentation on my created endpoints and this is also because of pydantics
 
 uvicorn is used as default
 
