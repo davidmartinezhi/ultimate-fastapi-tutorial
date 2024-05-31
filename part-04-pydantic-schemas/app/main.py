@@ -2,7 +2,7 @@ from fastapi import FastAPI, APIRouter, Query
 
 from typing import Optional
 
-from app.schemas import RecipeSearchResults, Recipe, RecipeCreate
+from app.schemas import RecipeSearchResults, Recipe, RecipeCreate, RecipeUpdateRestricted
 from app.recipe_data import RECIPES
 
 
@@ -79,6 +79,30 @@ def create_recipe(*, recipe_in: RecipeCreate) -> dict:
 
     return recipe_entry
 
+@api_router.put("/recipe/", status_code=200, response_model=Recipe)
+def update_recipe(*, recipe_in: RecipeUpdateRestricted) -> dict:
+    """
+    Update an existing recipe (in memory only)
+    """
+    print(RECIPES)
+    # Find recipe
+    recipe = RECIPES.pop(recipe_in.id - 1)
+    
+    # Update recipe
+    recipe["label"] = recipe_in.label
+    
+    # Insert recipe back into RECIPES
+    RECIPES.insert(recipe_in.id - 1, recipe)
+    print(RECIPES)
+    return recipe
+    
+    
+@api_router.delete("/recipe/{recipe_id}", status_code=200, response_model=Recipe)
+def delete_recipe(*, recipe_id: int) -> dict:
+    """
+    Deletes a recipe by ID (in memory only)
+    """
+    return RECIPES.pop(recipe_id - 1)
 
 app.include_router(api_router)
 
