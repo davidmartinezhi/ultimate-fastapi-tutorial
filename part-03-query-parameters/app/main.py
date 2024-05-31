@@ -48,11 +48,12 @@ def fetch_recipe(*, recipe_id: int) -> dict:
     if result:
         return result[0]
 
-
+# Example: http://localhost:8001/search/?keyword=chicken&max_results=1
 # New addition, query parameter
 # https://fastapi.tiangolo.com/tutorial/query-params/
 @api_router.get("/search/", status_code=200)
 def search_recipes(
+    # Fast api will infer this are query parameters, because we didn't specify curly braces after search/
     keyword: Optional[str] = None, max_results: Optional[int] = 10
 ) -> dict:
     """

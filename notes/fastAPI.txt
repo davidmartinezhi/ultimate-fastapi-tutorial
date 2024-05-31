@@ -1,3 +1,8 @@
 FastAPI does not have built in server
 
 uvicorn is used as default
+
+poetry is like pnpm for python. manages packages and configurations, but also automates virtual environments
+
+pydantic
+Data validation and settings management
