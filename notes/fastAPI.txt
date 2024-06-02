@@ -7,3 +7,65 @@ poetry is like pnpm for python. manages packages and configurations, but also au
 
 pydantic
 Data validation and settings management
+
+Database parts:
+    * Endpoint Logic
+    * ORM Layer
+    * Data Access Layer (SQLAlchemy)
+
+----
+Python decorators template for building decorators
+import functools
+
+def decorator(func):
+    @functools.wraps(func)
+    def wrapper_decorator(*args, **kwargs):
+        # Do something before
+        value = func(*args, **kwargs)
+        # Do something after
+        return value
+    return wrapper_decorator
+
+----
+Decorators to register functions called
+PLUGINS = dict()
+
+def register(func):
+    """Register a function as a plug-in"""
+    PLUGINS[func.__name__] = func
+    return func
+
+----
+Example of decorators to validate signed in user
+import functools
+from flask import Flask, g, request, redirect, url_for
+
+app = Flask(__name__)
+
+def login_required(func):
+    """Make sure user is logged in before proceeding"""
+    @functools.wraps(func)
+    def wrapper_login_required(*args, **kwargs):
+        if g.user is None:
+            return redirect(url_for("login", next=request.url))
+        return func(*args, **kwargs)
+    return wrapper_login_required
+
+@app.route("/secret")
+@login_required
+def secret():
+    ...
+
+-----
+Decorator with parameters
+def repeat(num_times):
+    def decorator_repeat(func):
+        @functools.wraps(func)
+        def wrapper_repeat(*args, **kwargs):
+            for _ in range(num_times):
+                value = func(*args, **kwargs)
+            return value
+        return wrapper_repeat
+    return decorator_repeat. 
+    
+in here repeat(higher function) takes the arguments and decorator_repeat takes the function and wrapper_repeat does the logic
