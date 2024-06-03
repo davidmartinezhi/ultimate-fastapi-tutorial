@@ -69,3 +69,11 @@ def repeat(num_times):
     return decorator_repeat. 
     
 in here repeat(higher function) takes the arguments and decorator_repeat takes the function and wrapper_repeat does the logic
+
+
+--- 
+Alembic
+Alembic goes through the defined models in alchemy and automatically
+creates a migration script for us.
+
+To create the versions file we would run alembic revision --autogenerate -m "description"
