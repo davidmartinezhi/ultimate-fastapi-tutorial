@@ -11,6 +11,8 @@ CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 
 # This class is a generic class that will be used to create CRUD operations for any SQLAlchemy model
+# It expects a model type, then two schemas for creating and updating the model
+# model comes from models directory and schema from the schemas directory
 class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def __init__(self, model: Type[ModelType]):
         """
