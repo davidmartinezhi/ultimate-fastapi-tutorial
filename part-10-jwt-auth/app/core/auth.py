@@ -18,7 +18,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/login
 
 
 def authenticate(
-    *,
+    *, # This is a keyword-only argument
     email: str,
     password: str,
     db: Session,

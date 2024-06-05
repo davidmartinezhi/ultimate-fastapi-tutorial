@@ -15,7 +15,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def create(self, db: Session, *, obj_in: UserCreate) -> User:
         create_data = obj_in.dict()
         create_data.pop("password")
-        db_obj = User(**create_data)
+        db_obj = User(**create_data) # This is dictionary unpacking
         db_obj.hashed_password = get_password_hash(obj_in.password)
         db.add(db_obj)
         db.commit()
