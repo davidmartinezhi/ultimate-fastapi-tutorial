@@ -97,7 +97,9 @@ def get_reddit_top(subreddit: str) -> list:
 async def fetch_ideas_async() -> dict:
     results = await asyncio.gather(
         *[get_reddit_top_async(subreddit=subreddit) for subreddit in RECIPE_SUBREDDITS]
-    )
+    ) # gather is used to run multiple async functions concurrently, the * is used to unpack the list of async functions
+    # By using the * operator, we are effectively calling asyncio.gather(coroutine1, coroutine2, coroutine3, ...) instead of asyncio.gather([coroutine1, coroutine2, coroutine3, ...]).
+
     return dict(zip(RECIPE_SUBREDDITS, results))
 
 
