@@ -23,11 +23,11 @@ class Ideas:
             key: self.client.get_reddit_top(subreddit=key) for key in RECIPE_SUBREDDITS
         }
 
-    @property
+    @property # The @property decorator is used to define a method that acts as a getter for an attribute
     def client(self):
         return self._client
 
-    @client.setter
+    @client.setter # The @client.setter decorator is used to define a method that acts as a setter for an attribute.
     def client(self, value: RedditClient):
         self._client = value
 

@@ -15,8 +15,8 @@ class RedditClient:
     base_error: t.Type[RedditClientError] = RedditClientError
 
     def __init__(self) -> None:
-        self.session = Client()
-        self.session.headers.update(
+        self.session = Client() # An instance of httpx.Client used for making HTTP requests.
+        self.session.headers.update( # Sets default headers for all requests made by this client, including Content-Type and User-agent.
             {"Content-Type": "application/json", "User-agent": "recipe bot 0.1"}
         )
 
