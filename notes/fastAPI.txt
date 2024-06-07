@@ -77,3 +77,20 @@ Alembic goes through the defined models in alchemy and automatically
 creates a migration script for us.
 
 To create the versions file we would run alembic revision --autogenerate -m "description"
+
+
+---
+Fast api dependency injection
+
+---
+
+Clean code
+
+Have simple small tools that are easy to link together.
+
+Data structures pass through phases. 
+
+example of talk:
+    First: read the entire tax form 
+    Then: do all the computations
+    Finally: write to the pdf
