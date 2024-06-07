@@ -82,6 +82,122 @@ To create the versions file we would run alembic revision --autogenerate -m "des
 ---
 Fast api dependency injection
 
+Dependency Injection (DI)
+Dependency Injection is a design pattern used to implement Inversion of Control (IoC), 
+allowing a class or function to receive its dependencies from an external source rather 
+than creating them itself. This promotes loose coupling and enhances testability and maintainability.
+
+Benefits of Dependency Injection:
+    * Loose Coupling: Reduces the dependencies between components.
+    * Testability: Makes it easier to test components by allowing mock dependencies to be injected.
+    * Flexibility: Allows changing the behavior of a component by injecting different implementations of dependencies.
+
+Basic example: ----------
+class EmailService:
+    def send_email(self, to: str, message: str):
+        print(f"Sending email to {to}: {message}")
+
+class UserService:
+    def __init__(self, email_service: EmailService):
+        self.email_service = email_service
+
+    def notify_user(self, user: str, message: str):
+        self.email_service.send_email(user, message)
+
+# Usage
+email_service = EmailService()
+user_service = UserService(email_service)
+user_service.notify_user("example@example.com", "Hello!")
+
+Intermediate Example: ----------
+from abc import ABC, abstractmethod
+
+class EmailServiceInterface(ABC):
+    @abstractmethod
+    def send_email(self, to: str, message: str):
+        pass
+
+class EmailService(EmailServiceInterface):
+    def send_email(self, to: str, message: str):
+        print(f"Sending email to {to}: {message}")
+
+class UserService:
+    def __init__(self, email_service: EmailServiceInterface):
+        self.email_service = email_service
+
+    def notify_user(self, user: str, message: str):
+        self.email_service.send_email(user, message)
+
+# Usage
+email_service = EmailService()
+user_service = UserService(email_service)
+user_service.notify_user("example@example.com", "Hello!")
+
+Advanced example with dependency injection frameworks: ----------
+
+from injector import inject, Injector, Module, provider, singleton
+
+class EmailService:
+    def send_email(self, to: str, message: str):
+        print(f"Sending email to {to}: {message}")
+
+class UserService:
+    @inject
+    def __init__(self, email_service: EmailService):
+        self.email_service = email_service
+
+    def notify_user(self, user: str, message: str):
+        self.email_service.send_email(user, message)
+
+class AppModule(Module):
+    @singleton
+    @provider
+    def provide_email_service(self) -> EmailService:
+        return EmailService()
+
+injector = Injector([AppModule()])
+user_service = injector.get(UserService)
+user_service.notify_user("example@example.com", "Hello!")
+
+
+-----
+
+El Singleton es un patrón de diseño, no un principio. Se utiliza en programación orientada a objetos 
+para restringir la instanciación de una clase a un único objeto. Esto es útil cuando se necesita exactamente 
+una instancia de una clase para coordinar acciones en todo el sistema.
+
+    Características del Patrón Singleton
+    Única Instancia: Garantiza que solo exista una instancia de la clase en todo el sistema.
+    Acceso Global: Proporciona un punto de acceso global a esa instancia.
+
+Ejemplo:
+class Singleton:
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
+
+# Uso del Singleton
+singleton1 = Singleton()
+singleton2 = Singleton()
+
+print(singleton1 is singleton2)  # Output: True
+
+---
+A pure function is a function that:
+
+    * Produces the same output for the same input every time it is called.
+    * Has no side effects. This means it does not modify any external state or interact with the outside world (e.g., modifying global variables, writing to disk, or printing to the console).
+
+Example:
+def add(a, b):
+    return a + b
+
+    * Consistent Output: add(2, 3) will always return 5.
+    * No Side Effects: It only computes the sum and returns it without affecting any external state.
+
 ---
 
 Clean code
