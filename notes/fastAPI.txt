@@ -159,7 +159,45 @@ injector = Injector([AppModule()])
 user_service = injector.get(UserService)
 user_service.notify_user("example@example.com", "Hello!")
 
+1.Core Logic (Entities and Use Cases):
 
+    * Contains business rules and logic.
+    * Depends on abstractions (interfaces or protocols).
+
+2.Infrastructure Layer:
+
+    * Contains concrete implementations of the I/O operations.
+    * Implements the interfaces defined in the core logic.
+
+3.Application Layer:
+
+    * Orchestrates the core logic and I/O components.
+    * Injects dependencies into the core logic.
+
+Benefits
+    * Maintainability: Changes in I/O operations do not affect the core logic.
+    * Testability: Core logic can be tested independently of the I/O components.
+    * Flexibility: Different I/O implementations can be swapped without changing the core logic.
+
+Clean Code Recommendations
+    * Use Interfaces/Protocols: Define clear interfaces for I/O operations and depend on these interfaces in the core logic.
+    * Dependency Injection: Inject dependencies at runtime, keeping the core logic agnostic of the concrete implementations.
+    * Layered Architecture: Maintain a clear separation between different layers of your application.
+    * Pluggable Components: Ensure that components can be easily replaced or extended without modifying the core logic.
+
+----
+Protocol: declaring interfaces in python
+
+In Python, Protocol is a feature introduced in PEP 544 and is part of the typing module. 
+It allows you to define structural types, which are similar to interfaces in other programming languages. 
+A Protocol specifies the methods and properties a class must have to be considered as implementing the protocol, 
+but without requiring explicit inheritance.
+
+What is a Protocol?
+A Protocol in Python is used to define a set of methods and properties that a 
+class must implement. This is particularly useful for type checking and can be 
+used to enforce that certain classes adhere to a specific interface, even if they 
+do not explicitly inherit from a common base class.
 -----
 
 El Singleton es un patrón de diseño, no un principio. Se utiliza en programación orientada a objetos 
