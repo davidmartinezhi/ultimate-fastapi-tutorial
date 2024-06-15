@@ -186,6 +186,21 @@ Clean Code Recommendations
     * Pluggable Components: Ensure that components can be easily replaced or extended without modifying the core logic.
 
 ----
+When using Dependency in fastapi in the parameters
+Esas funciones se llaman primero y los valores resultantes se regresan como parametros en la función.xs
+
+Why Use Dependency Injection?
+Separation of Concerns: Keeps the business logic separate from the route handling logic.
+Reusability: Dependencies can be reused across multiple endpoints.
+Testability: Dependencies can be easily mocked for testing purposes.
+Readability: Makes the code more readable by clearly specifying dependencies.
+
+
+La inyección por constructor es adecuada cuando estás trabajando con clases que tienen 
+dependencias que necesitan ser resueltas al momento de la creación del objeto.
+Este método es útil en contextos donde los objetos necesitan estar completamente 
+inicializados antes de ser utilizados.
+----
 Protocol: declaring interfaces in python
 
 In Python, Protocol is a feature introduced in PEP 544 and is part of the typing module. 
@@ -248,3 +263,17 @@ example of talk:
     First: read the entire tax form 
     Then: do all the computations
     Finally: write to the pdf
+
+
+---
+En pytest 
+
+Documentos deben iniciar con la palabra test
+crear conftest.py te permite crear @pytest.fixtures y que sean compartidas por los tests
+
+Tipico contenido de función suele ser.
+    # When
+    Call method to test
+
+    #Then 
+    assert <valor que debe ser>
